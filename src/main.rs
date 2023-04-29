@@ -6,6 +6,8 @@ fn App(cx: Scope) -> impl IntoView {
 
     view! { cx,
         <button
+            class:red=move || count.get() % 2 == 0
+            class:blue=move || count.get() % 2 == 1
             on:click=move |_| {
                 set_count.update(|n| *n += 1);
             }
