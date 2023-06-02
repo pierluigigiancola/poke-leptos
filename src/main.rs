@@ -1,12 +1,15 @@
 use leptos::*;
 
 #[component]
-fn ProgressBar(
+fn ProgressBar<F>(
     cx: Scope,
     #[prop(optional)] label: &'static str,
     #[prop(default = 100)] max: u16,
-    progress: ReadSignal<i32>,
-) -> impl IntoView {
+    progress: F,
+) -> impl IntoView
+where
+    F: Fn() -> i32 + 'static,
+{
     view! { cx,
          <label>
             {label}
@@ -21,6 +24,8 @@ fn ProgressBar(
 #[component]
 fn App(cx: Scope) -> impl IntoView {
     let (count, set_count) = create_signal(cx, 0);
+
+    let double_count = move || count.get() * 2;
 
     view! { cx,
         <button
@@ -45,6 +50,10 @@ fn App(cx: Scope) -> impl IntoView {
         </div>
         <div>
         <ProgressBar progress={count} max={50} label="Max 50" />
+        </div>
+
+        <div>
+        <ProgressBar progress={double_count} max={50} label="Max 50 double count" />
         </div>
     }
 }
