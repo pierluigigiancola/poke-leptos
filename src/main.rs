@@ -1,25 +1,6 @@
+mod progress_bar;
 use leptos::*;
-
-#[component]
-fn ProgressBar<F>(
-    cx: Scope,
-    #[prop(optional)] label: &'static str,
-    #[prop(default = 100)] max: u16,
-    progress: F,
-) -> impl IntoView
-where
-    F: Fn() -> i32 + 'static,
-{
-    view! { cx,
-         <label>
-            {label}
-        </label>
-        <progress
-            max=max
-            value=progress
-        />
-    }
-}
+use progress_bar::{ProgressBar, ProgressBarProps};
 
 #[component]
 fn App(cx: Scope) -> impl IntoView {
